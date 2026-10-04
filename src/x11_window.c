@@ -786,7 +786,8 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
 
     _glfwSetWindowTitleX11(window, window->title);
     _glfwGetWindowPosX11(window, &window->x11.xpos, &window->x11.ypos);
-    _glfwGetWindowSizeX11(window, &window->x11.width, &window->x11.height);
+    window->x11.width = width;
+    window->x11.height = height;
 
     return GLFW_TRUE;
 }
@@ -2196,13 +2197,10 @@ void _glfwSetWindowPosX11(_GLFWwindow* window, int xpos, int ypos)
 
 void _glfwGetWindowSizeX11(_GLFWwindow* window, int* width, int* height)
 {
-    XWindowAttributes attribs;
-    XGetWindowAttributes(_glfw.x11.display, window->x11.handle, &attribs);
-
     if (width)
-        *width = attribs.width;
+        *width = window->x11.width;
     if (height)
-        *height = attribs.height;
+        *height = window->x11.height;
 }
 
 void _glfwSetWindowSizeX11(_GLFWwindow* window, int width, int height)
