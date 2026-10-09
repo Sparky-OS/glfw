@@ -1,3 +1,27 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/sparky-stereo-os/sparkyos-swirl-light-128.png">
+  <img src=".github/sparky-stereo-os/sparkyos-swirl-dark-128.png" alt="SparkyOS" width="128" height="128">
+</picture>
+
+## Sparky Stereo OS
+
+This is the stereo version of GLFW by Sparky Stereo OS, forked from [glfw/glfw](https://github.com/glfw/glfw).
+On X11, it reports the window size from the last ConfigureNotify, so a program that declares stereo sees the size of one view.
+
+Where it comes from:
+
+- [GLFW](https://www.glfw.org) is made by Marcus Geelnard and Camilla Löwy, with the contributors listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+- [Debian](https://www.debian.org/) is the base of the system.
+- [SparkyLinux](https://sparkylinux.org/), by Paweł "pavroo" Pijanowski, builds on Debian.
+- [Sparky Stereo OS](https://github.com/Sparky-OS/sparky-stereo-os) is the stereo 3D edition of SparkyLinux: SparkyOS, powered by Debian.
+
+The `stereo3d` branch holds the version the distribution builds.
+The licence is unchanged; see [LICENSE.md](LICENSE.md).
+
+Sparky Stereo OS, Daniel Ramos's edition of SparkyLinux (by Paweł "pavroo" Pijanowski).
+
+---
+
 # GLFW
 
 [![Build status](https://github.com/glfw/glfw/actions/workflows/build.yml/badge.svg)](https://github.com/glfw/glfw/actions)
