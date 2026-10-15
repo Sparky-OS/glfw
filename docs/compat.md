@@ -159,6 +159,16 @@ less than the actual scale.
 
 [fractional-scale-v1]: https://wayland.app/protocols/fractional-scale-v1
 
+GLFW uses the [EGL_EXT_multiview_window][] extension to create stereo OpenGL
+windows with EGL.  A window surface with two views has the left and right back
+buffers of the @ref GLFW_STEREO hint.  If the EGL implementation does not
+support this extension, or the context is not a desktop OpenGL context, the
+creation of a stereo window fails with EGL.  On Wayland, a stereo window does
+not use the [fractional-scale-v1][] protocol, as the EGL implementation maps the
+buffer holding both views onto the window with a viewport of its own.
+
+[EGL_EXT_multiview_window]: https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_multiview_window.txt
+
 
 ## GLX extensions {#compat_glx}
 
