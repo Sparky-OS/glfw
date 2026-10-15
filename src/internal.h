@@ -178,6 +178,7 @@ typedef void (APIENTRY * PFNGLFLUSHPROC)(void);
 #define EGL_PLATFORM_X11_EXT 0x31d5
 #define EGL_PLATFORM_WAYLAND_EXT 0x31d8
 #define EGL_PRESENT_OPAQUE_EXT 0x31df
+#define EGL_MULTIVIEW_VIEW_COUNT_EXT 0x3134
 #define EGL_PLATFORM_ANGLE_ANGLE 0x3202
 #define EGL_PLATFORM_ANGLE_TYPE_ANGLE 0x3203
 #define EGL_PLATFORM_ANGLE_TYPE_OPENGL_ANGLE 0x320d
@@ -817,6 +818,7 @@ struct _GLFWlibrary
         bool            EXT_platform_x11;
         bool            EXT_platform_wayland;
         bool            EXT_present_opaque;
+        bool            EXT_multiview_window;
         bool            ANGLE_platform_angle;
         bool            ANGLE_platform_angle_opengl;
         bool            ANGLE_platform_angle_d3d;

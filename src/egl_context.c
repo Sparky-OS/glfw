@@ -110,10 +110,17 @@ static GLFWbool chooseEGLConfig(const _GLFWctxconfig* ctxconfig,
     else
         surfaceTypeBit = EGL_WINDOW_BIT;
 
+    // NOTE: EGLConfigs have no stereo attribute, but a window surface with two
+    //       views has the left and right buffers of desktop OpenGL
     if (fbconfig->stereo)
     {
-        _glfwInputError(GLFW_FORMAT_UNAVAILABLE, "EGL: Stereo rendering not supported");
-        return GLFW_FALSE;
+        if (ctxconfig->client != GLFW_OPENGL_API ||
+            surfaceTypeBit != EGL_WINDOW_BIT ||
+            !_glfw.egl.EXT_multiview_window)
+        {
+            _glfwInputError(GLFW_FORMAT_UNAVAILABLE, "EGL: Stereo rendering not supported");
+            return GLFW_FALSE;
+        }
     }
 
     eglGetConfigs(_glfw.egl.display, NULL, 0, &nativeCount);
@@ -196,6 +203,7 @@ static GLFWbool chooseEGLConfig(const _GLFWctxconfig* ctxconfig,
 
         u->samples = getEGLConfigAttrib(n, EGL_SAMPLES);
         u->doublebuffer = fbconfig->doublebuffer;
+        u->stereo = fbconfig->stereo;
 
         u->handle = (uintptr_t) n;
         usableCount++;
@@ -562,6 +570,8 @@ GLFWbool _glfwInitEGL(void)
         extensionSupportedEGL("EGL_KHR_context_flush_control");
     _glfw.egl.EXT_present_opaque =
         extensionSupportedEGL("EGL_EXT_present_opaque");
+    _glfw.egl.EXT_multiview_window =
+        extensionSupportedEGL("EGL_EXT_multiview_window");
 
     return GLFW_TRUE;
 }
@@ -728,6 +738,9 @@ GLFWbool _glfwCreateContextEGL(_GLFWwindow* window,
 
     if (!fbconfig->doublebuffer)
         SET_ATTRIB(EGL_RENDER_BUFFER, EGL_SINGLE_BUFFER);
+
+    if (fbconfig->stereo)
+        SET_ATTRIB(EGL_MULTIVIEW_VIEW_COUNT_EXT, 2);
 
     if (_glfw.platform.platformID == GLFW_PLATFORM_WAYLAND)
     {

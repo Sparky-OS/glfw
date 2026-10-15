@@ -1220,7 +1220,9 @@ static GLFWbool createNativeSurface(_GLFWwindow* window,
     if (!window->wl.transparent)
         setContentAreaOpaque(window);
 
-    if (_glfw.wl.fractionalScaleManager)
+    // NOTE: The EGL surface of a stereo window has a viewport of its own,
+    //       which maps the buffer holding both views onto the window
+    if (_glfw.wl.fractionalScaleManager && !fbconfig->stereo)
     {
         if (window->wl.scaleFramebuffer)
         {
